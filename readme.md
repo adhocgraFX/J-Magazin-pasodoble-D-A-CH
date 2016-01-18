@@ -1,5 +1,6 @@
-#PasoDoble-2
-## responsive Joomla! 3.4x template
+#PasoDoble | responsive Joomla! 3.4x template
+## Version für Joomla! Magazin D-A-CH
+ 
 
 * less 
 * adhocgrafx template [styleguide](https://github.com/adhocgraFX/styleguide "styleguide")

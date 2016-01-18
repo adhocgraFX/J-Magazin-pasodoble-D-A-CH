@@ -141,9 +141,9 @@ endif; ?>
 
 	<!-- Tile icon for Win8 (144x144 + tile color) -->
 	<meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
-	<meta name="msapplication-TileColor" content="#2c4d91">
+	<meta name="msapplication-TileColor" content="#4527a0">
 
-	<meta name="theme-color" content="#3372DF">
+	<meta name="theme-color" content="#7b1fa2">
 
 	<!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page
 	https://developers.google.com/webmasters/smartphone-sites/feature-phones
