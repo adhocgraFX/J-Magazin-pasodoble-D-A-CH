@@ -80,8 +80,11 @@ endif;
 <?php endif; ?>
 
 <?php if ($view == "form" || $layout == "edit" ) :
-	// für frontend editing zusätzlich protostar css laden
-	$doc->addStyleSheet($tpath . '/css/bootstrap.css');
+	// für frontend editing zusätzlich bootstrap css laden
+	// $doc->addStyleSheet($tpath . '/css/bootstrap.css');
+	$doc->addStyleSheet($this->baseurl . '/media/jui/css/bootstrap.min.css');
+	$doc->addStyleSheet($this->baseurl . '/media/jui/css/bootstrap-extended.css');
+	$doc->addStyleSheet($this->baseurl . '/media/jui/css/bootstrap-responsive.css');
 	// template css
 	$doc->addStyleSheet($tpath . '/dist/style.css');
 else:
@@ -89,9 +92,7 @@ else:
 endif; ?>
 
 <!doctype html>
-
-<html lang="<?php echo $this->language; ?>">
-
+<html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>" >
 <head>
 
 	<jdoc:include type="head"/>
