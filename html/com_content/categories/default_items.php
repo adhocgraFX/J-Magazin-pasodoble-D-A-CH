@@ -25,7 +25,7 @@ if (count($this->items[$this->parent->id]) > 0 && $this->maxLevelcat != 0) :
 		?>
 		<div <?php echo $class; ?> >
 		<?php $class = ''; ?>
-			<h3 class="page-header item-title">
+			<h1 class="page-header item-title">
 				<a href="<?php echo JRoute::_(ContentHelperRoute::getCategoryRoute($item->id));?>">
 				<?php echo $this->escape($item->title); ?></a>
 				<?php if ($this->params->get('show_cat_num_articles_cat') == 1) :?>
@@ -36,7 +36,7 @@ if (count($this->items[$this->parent->id]) > 0 && $this->maxLevelcat != 0) :
 				<?php if (count($item->getChildren()) > 0 && $this->maxLevelcat > 1) : ?>
 					<a href="#category-<?php echo $item->id;?>" data-toggle="collapse" data-toggle="button" class="btn btn-mini pull-right"><span class="icon-plus"></span></a>
 				<?php endif;?>
-			</h3>
+			</h1>
 			<?php if ($this->params->get('show_description_image') && $item->getParams()->get('image')) : ?>
 				<img src="<?php echo $item->getParams()->get('image'); ?>"/>
 			<?php endif; ?>
