@@ -111,6 +111,9 @@ div.article-index {
   .make-block;
   margin: .5em 0;
   font-size: .875em;
+  float: right;
+  margin-left: 1em;
+  width: 38%;
 
   h3 {
     font-size: 1.25em;
@@ -126,7 +129,6 @@ div.article-index {
       list-style-type: none;
       position: relative;
       display: block;
-      float: left;
       padding: 0;
       margin: 0;
 
@@ -135,7 +137,8 @@ div.article-index {
         font-weight: normal;
         position: relative;
         display: block;
-        float: left;
+        width: 100%;
+        // float: left;
         padding: .5em 1em;
         margin: .25em .25em 0 0;
         color: @color-accent-text;
@@ -155,8 +158,10 @@ div.article-index {
 
 div.pagenavcounter {
   .make-block;
+  float: none;
   margin: .5em 0;
   font-size: .875em;
+  // width: 100%;
   color: @concrete-dark;
 }
 
