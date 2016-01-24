@@ -29,7 +29,6 @@ $head = $this->getHeadData();
 unset($head['metaTags']['http-equiv']);
 
 $this->setHeadData($head);
-
 ?>
 
 <!doctype html>
