@@ -10,7 +10,7 @@ $sitename  = $app->get('sitename');
 
 $doc->addStyleSheet($this->baseurl . '/media/jui/css/bootstrap.min.css');
 $doc->addStyleSheet($this->baseurl . '/media/jui/css/bootstrap-extended.css');
-$doc->addStyleSheet($this->baseurl . '/media/jui/css/bootstrap-responsive.css');
+$doc->addStyleSheet($this->baseurl . '/media/jui/css/bootstrap-responsive.min.css');
 
 // template css
 $doc->addStyleSheet($tpath . '/dist/print.css');
@@ -35,12 +35,22 @@ $this->setHeadData($head);
 <head>
 	<meta charset="<?php echo $this->getCharset(); ?>">
 	<jdoc:include type="head"/>
+
+<style type="text/css">
+	@media (max-width: 767px) {
+		.thumbnails > li {
+			float: left !important;
+			margin-left: 20px !important;
+		}
+	}
+</style>
 </head>
 <body class="contentpane">
 	<jdoc:include type="message"/>
 	<jdoc:include type="component"/>
-<footer>
-	<p><?php echo htmlspecialchars($sitename); ?> | <?php echo $cur_year ;?> | &copy; | alle Rechte vorbehalten</p>
-</footer>
+
+	<footer>
+		<p><?php echo htmlspecialchars($sitename); ?> | <?php echo $cur_year ;?> | &copy; | alle Rechte vorbehalten</p>
+	</footer>
 </body>
 </html>
