@@ -36,14 +36,15 @@ $this->setHeadData($head);
 	<meta charset="<?php echo $this->getCharset(); ?>">
 	<jdoc:include type="head"/>
 
-<style type="text/css">
-	@media (max-width: 767px) {
-		.thumbnails > li {
-			float: left !important;
-			margin-left: 20px !important;
+	// für frontend editing
+	<style type="text/css">
+		@media (max-width: 767px) {
+			.thumbnails > li {
+				float: left !important;
+				margin-left: 20px !important;
+			}
 		}
-	}
-</style>
+	</style>
 </head>
 <body class="contentpane">
 	<jdoc:include type="message"/>

@@ -28,19 +28,28 @@ $params    = $tpl->params;
 $action    = $menu->getActive() == $menu->getDefault() ? ('front') : ('site');
 
 // get template params
-$logo        = $this->params->get('logo');
-$textresizer = $this->params->get('textresizer');
-
-$whichmethod   = $this->params->get('whichmethod');
-$fontloadercss = $this->params->get('fontloadercss');
-$fontloaderjs  = $this->params->get('fontloaderjs');
-
-$headerbackground = $this->params->get('headerbackground');
-$hltext = $this->params->get('hltext');
-
-$buttontext = $this->params->get('buttontext');
-$buttonlink = $this->params->get('buttonlink');
-$unset      = $this->params->get('unset');
+$logo           = $this->params->get('logo');
+$textresizer    = $this->params->get('textresizer');
+// fonts
+$whichmethod    = $this->params->get('whichmethod');
+$fontloadercss  = $this->params->get('fontloadercss');
+$fontloaderjs   = $this->params->get('fontloaderjs');
+// header style
+$headerbackground   = $this->params->get('headerbackground');
+$hltext             = $this->params->get('hltext');
+// call to action
+$buttontext     = $this->params->get('buttontext');
+$buttonlink     = $this->params->get('buttonlink');
+// unset js
+$unset          = $this->params->get('unset');
+// cookies
+$c_accept       = $this->params->get('acceptcookie');
+$c_infotext     = $this->params->get('cookieinfotext');
+$c_buttontext   = $this->params->get('cookiebuttontext');
+$c_linktext     = $this->params->get('cookielinktext');
+$c_link         = $this->params->get('cookielink');
+// mobify
+$mobify         = $this->params->get('mobify');
 
 // generator tag
 $this->setGenerator(null);
@@ -52,8 +61,8 @@ if ($unset == 1) :
 	unset($doc->_scripts[$this->baseurl . '/media/jui/js/jquery-migrate.min.js']);
 	unset($doc->_scripts[$this->baseurl . '/media/system/js/caption.js']);
 	unset($doc->_scripts[$this->baseurl . '/media/system/js/html5fallback.js']);
-elseif ($view == "form" || $layout == "edit" ) :
-	// für frontend editing
+elseif ($view == "form" || $view == "modules" || $layout == "edit") :
+	// frontend editing
 	JHtml::_('bootstrap.framework');
 else:
 	// add jquery framework
@@ -79,8 +88,8 @@ endif;
 	<?php endif; ?>
 <?php endif; ?>
 
-<?php if ($view == "form" || $layout == "edit" ) :
-	// für frontend editing zusätzlich bootstrap css laden
+<?php if ($view == "form" || $view == "modules" || $layout == "edit") :
+	// frontend editing > zusätzlich bootstrap css
 	$doc->addStyleSheet($this->baseurl . '/media/jui/css/bootstrap.min.css');
 	$doc->addStyleSheet($this->baseurl . '/media/jui/css/bootstrap-extended.css');
 	$doc->addStyleSheet($this->baseurl . '/media/jui/css/bootstrap-responsive.min.css');
@@ -91,7 +100,9 @@ else:
 endif; ?>
 
 <!doctype html>
+
 <html lang="<?php echo $this->language; ?>" dir="<?php echo $this->direction; ?>" >
+
 <head>
 
 	<jdoc:include type="head"/>
@@ -99,14 +110,15 @@ endif; ?>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<?php if ($view != "form" || $layout != "edit" ) : ?>
-	<!-- Bildverkleinerung über mobify cdn -->
-	<script>!function(a,b,c,d,e){function g(a,c,d,e){var f=b.getElementsByTagName("script")[0];a.src=e,a.id=c,a.setAttribute("class",d),f.parentNode.insertBefore(a,f)}a.Mobify={points:[+new Date]};var f=/((; )|#|&|^)mobify=(\d)/.exec(location.hash+"; "+b.cookie);if(f&&f[3]){if(!+f[3])return}else if(!c())return;b.write('<plaintext style="display:none">'),setTimeout(function(){var c=a.Mobify=a.Mobify||{};c.capturing=!0;var f=b.createElement("script"),h="mobify",i=function(){var c=new Date;c.setTime(c.getTime()+3e5),b.cookie="mobify=0; expires="+c.toGMTString()+"; path=/",a.location=a.location.href};f.onload=function(){if(e)if("string"==typeof e){var c=b.createElement("script");c.onerror=i,g(c,"main-executable",h,mainUrl)}else a.Mobify.mainExecutable=e.toString(),e()},f.onerror=i,g(f,"mobify-js",h,d)})}(window,document,function(){a=/webkit|(firefox)[\/\s](\d+)|(opera)[\s\S]*version[\/\s](\d+)|(trident)[\/\s](\d+)/i.exec(navigator.userAgent);return!a||a[1]&&4>+a[2]||a[3]&&11>+a[4]||a[5]&&6>+a[6]?!1:!0},
+	<?php if ($mobify == 1): ?>
+		<!-- Bildverkleinerung über mobify cdn -->
+		<?php if ($view != "form" || $layout != "edit") : ?>
+		<script>!function(a,b,c,d,e){function g(a,c,d,e){var f=b.getElementsByTagName("script")[0];a.src=e,a.id=c,a.setAttribute("class",d),f.parentNode.insertBefore(a,f)}a.Mobify={points:[+new Date]};var f=/((; )|#|&|^)mobify=(\d)/.exec(location.hash+"; "+b.cookie);if(f&&f[3]){if(!+f[3])return}else if(!c())return;b.write('<plaintext style="display:none">'),setTimeout(function(){var c=a.Mobify=a.Mobify||{};c.capturing=!0;var f=b.createElement("script"),h="mobify",i=function(){var c=new Date;c.setTime(c.getTime()+3e5),b.cookie="mobify=0; expires="+c.toGMTString()+"; path=/",a.location=a.location.href};f.onload=function(){if(e)if("string"==typeof e){var c=b.createElement("script");c.onerror=i,g(c,"main-executable",h,mainUrl)}else a.Mobify.mainExecutable=e.toString(),e()},f.onerror=i,g(f,"mobify-js",h,d)})}(window,document,function(){a=/webkit|(firefox)[\/\s](\d+)|(opera)[\s\S]*version[\/\s](\d+)|(trident)[\/\s](\d+)/i.exec(navigator.userAgent);return!a||a[1]&&4>+a[2]||a[3]&&11>+a[4]||a[5]&&6>+a[6]?!1:!0},
 
-	// path to mobify.js
+		// path to mobify.js
 				"//cdn.mobify.com/mobifyjs/build/mobify-2.0.16.min.js",
 
-	// calls to APIs go here (or path to a main.js)
+		// calls to APIs go here (or path to a main.js)
 				function() {
 					var capturing = window.Mobify && window.Mobify.capturing || false;
 
@@ -122,6 +134,7 @@ endif; ?>
 						});
 					}
 				});</script>
+		<?php endif; ?>
 	<?php endif; ?>
 
 	<!-- Disable tap highlight on IE -->
@@ -132,20 +145,40 @@ endif; ?>
 
 	<!-- Add to homescreen for Chrome on Android -->
 	<meta name="mobile-web-app-capable" content="yes">
-	<meta name="application-name" content="<?php echo htmlspecialchars($app->getCfg('sitename')); ?>">
-	<link rel="icon" sizes="192x192" href="<?php echo $tpath; ?>/images/touch/chrome-touch-icon-192x192.png">
+	<meta name="application-name" content="<?php echo htmlspecialchars($sitename); ?>">
+
+	<?php if ($hltext == "default") : ?>
+		<link rel="icon" sizes="192x192" href="<?php echo $tpath; ?>/images/touch/chrome-touch-icon-192x192.png">
+	<?php elseif ($hltext == "jmag") : ?>
+		<link rel="icon" sizes="192x192" href="<?php echo $tpath; ?>/images/jmdach/chrome-touch-icon-192x192.png">
+	<?php elseif ($hltext == "jugfulda"): ?>
+		<link rel="icon" sizes="192x192" href="<?php echo $tpath; ?>/images/jugfulda/chrome-touch-icon-192x192.png">
+	<?php endif; ?>
 
 	<!-- Add to homescreen for Safari on iOS -->
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<meta name="apple-mobile-web-app-title" content="<?php echo htmlspecialchars($app->getCfg('sitename')); ?>">
-	<link rel="apple-touch-icon" href="<?php echo $tpath; ?>/images/touch/apple-touch-icon.png">
+	<meta name="apple-mobile-web-app-title" content="<?php echo htmlspecialchars($sitename); ?>">
+
+	<?php if ($hltext == "default") : ?>
+		<link rel="apple-touch-icon" href="<?php echo $tpath; ?>/images/touch/apple-touch-icon.png">
+	<?php elseif ($hltext == "jmag") : ?>
+		<link rel="apple-touch-icon" href="<?php echo $tpath; ?>/images/jmdach/apple-touch-icon.png">
+	<?php elseif ($hltext == "jugfulda"): ?>
+		<link rel="apple-touch-icon" href="<?php echo $tpath; ?>/images/jugfulda/apple-touch-icon.png">
+	<?php endif; ?>
 
 	<!-- Tile icon for Win8 (144x144 + tile color) -->
-	<meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
-	<meta name="msapplication-TileColor" content="#4527a0">
+	<?php if ($hltext == "default") : ?>
+		<meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+	<?php elseif ($hltext == "jmag") : ?>
+		<meta name="msapplication-TileImage" content="images/jmdach/ms-touch-icon-144x144-precomposed.png">
+	<?php elseif ($hltext == "jugfulda"): ?>
+		<meta name="msapplication-TileImage" content="images/jugfulda/ms-touch-icon-144x144-precomposed.png">
+	<?php endif; ?>
 
-	<meta name="theme-color" content="#7b1fa2">
+	<meta name="msapplication-TileColor" content="#2c4d91">
+	<meta name="theme-color" content="#3372DF">
 
 	<!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page
 	https://developers.google.com/webmasters/smartphone-sites/feature-phones
@@ -190,7 +223,7 @@ endif; ?>
 				<a href="<?php echo $this->baseurl ?>"><?php echo htmlspecialchars($sitename); ?></a>
 			</h1>
 		<?php elseif ($hltext == "jmag") : ?>
-			<h1 class="logo-text">
+			<h1 class="logo-text jm-title">
 				<a href="<?php echo $this->baseurl ?>">Joomla!Magazin <span class="d-a-ch">D-A-CH</span> </a>
 			</h1>
 		<?php elseif ($hltext == "jugfulda"): ?>
@@ -269,6 +302,17 @@ endif; ?>
 			<aside class="sidebar-container" role="complementary">
 				<h4 class="sidebar-text">Sidebar</h4>
 				<jdoc:include type="modules" name="sidebar" style="jduo"/>
+				<?php if ($hltext == "jugfulda"): ?>
+					<div class="module jf-icons">
+						<div class="module-body">
+							<ul>
+								<li><a href="https://www.facebook.com/jugfulda/" target="_blank" title="Joomla! User Group Fulda bei facebook"><span class="icon-facebook-square"></span><p hidden>facebook</p></a></li>
+								<li><a href="https://www.flickr.com/photos/jugfulda/" target="_blank" title="Joomla! User Group Fulda bei flickr"><span class="icon-flickr"></span><p hidden>flickr</p></a></li>
+								<li><a href="https://twitter.com/jugfulda/" target="_blank" title="Folge uns auf twitter"><span class="icon-twitter"></span><p hidden>twitter</p></a></li>
+							</ul>
+						</div>
+					</div>
+				<?php endif; ?>
 			</aside>
 		<?php endif; ?>
 	</section>
@@ -294,16 +338,73 @@ endif; ?>
 
 <a href="#" class="go-top"><span class="icon-chevron-up"></span><p hidden>Top</p></a>
 
+<!-- cookie info -->
+<?php if ($c_accept == 1) : ?>
+
+	<?php if(isset($_POST['set_cookie'])):
+		if($_POST['set_cookie']==1)
+			setcookie("acceptcookie", "yes", time()+3600*24*365, "/");
+		?>
+	<?php endif; ?>
+
+	<div id="accept-cookie-container" class="box primary" style="display:none;position:fixed;bottom:-1em;font-size:.75em;width:100%;text-align:center;z-index:99999">
+		<p><?php echo htmlspecialchars($c_infotext); ?>
+		<?php if (($c_linktext != "Cookie link caption") and ($c_link != "http://my_site.de")): ?>
+			<a href="<?php echo htmlspecialchars($c_link); ?>">
+				<?php echo htmlspecialchars($c_linktext); ?></a>
+		<?php endif; ?></p>
+		<button id="accept" class="btn btn-accent"><?php echo htmlspecialchars($c_buttontext); ?></button>
+	</div>
+
+	<script type="text/javascript">
+		jQuery(document).ready(function () {
+
+			function setCookie(c_name,value,exdays)
+			{
+				var exdate=new Date();
+				exdate.setDate(exdate.getDate() + exdays);
+				var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString()) + "; path=/";
+				document.cookie=c_name + "=" + c_value;
+			}
+
+			function readCookie(name) {
+				var nameEQ = name + "=";
+				var ca = document.cookie.split(';');
+				for(var i=0;i < ca.length;i++) {
+					var c = ca[i];
+					while (c.charAt(0)==' ') c = c.substring(1,c.length);
+					if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+				}
+				return null;
+			}
+
+			var $ca_container = jQuery('#accept-cookie-container');
+			var $ca_accept = jQuery('#accept');
+			var acceptcookie = readCookie('acceptcookie');
+			if(!(acceptcookie == "yes")){
+
+				$ca_container.delay(1000).slideDown('slow');
+
+				$ca_accept.click(function(){
+					setCookie("acceptcookie","yes",365);
+					jQuery.post('<?php echo JURI::current(); ?>', 'set_cookie=1', function(){});
+					$ca_container.slideUp('slow');
+				});
+			}
+		});
+	</script>
+<?php endif; ?>
+
 <jdoc:include type="modules" name="debug"/>
 
-<?php if ($view != "form" || $layout != "edit" ) : ?>
+<!-- todo frontend editing -->
+<?php if ($view != "form" || $layout != "edit") : ?>
 	<!-- load plugin scripts -->
 	<?php if ($unset == 1): ?>
 		<script type="text/javascript" src="<?php echo $tpath . '/js/template.js.php?u=' . $unset . 'v=1'; ?>"></script>
 	<?php else: ?>
 		<script type="text/javascript" src="<?php echo $tpath . '/dist/app.js'; ?>"></script>
 	<?php endif; ?>
-
 	<!-- load plugin options -->
 	<?php include_once('js/plugin.js.php'); ?>
 <?php endif; ?>
